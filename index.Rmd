@@ -3,9 +3,8 @@ title: "Wolfgang Mössing"
 subtitle: "Bildende Kunst & Design"
 author:
   - name: "[<span class='material-symbols-outlined'>mail</span>](mailto:wolfgangmoessing@gmx.de)"
-date: "Stand: `r format(Sys.Date(), '%d. %B %Y')` ^[(c) `r format(Sys.Date(), '%Y')`, Wolfgang Mössing, Germany]"
 output: 
-  rmdformats::material:
+  rmdformats::readthedown:
     fig_width: 10
     fig_height: 10
     highlight: kate
@@ -26,48 +25,137 @@ editor_options:
 ```{=html}
 <meta name="robots" content="noindex">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Special+Elite&family=Boogaloo&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gruppo&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"">
 
 <style>
-.header-panel {
-    background-color: #c3caa7;
-    background: url('https://imgtoolkit.culturebase.org/?color=535353&quality=7&ar_method=rescaleIn&ar_ratio=1.4&min_length=300&file=https%3A%2F%2Fimg.culturebase.org%2F8%2Fb%2Fc%2F1%2F5%2Fpic_1499196763_8bc1508b2ca1f34bcbfa05b2587282ae.jpeg&do=cropOut&width=1400&height=610');
-}
 
 h1 {
-    font-family: 'Major Mono Display';
+    font-size: 25px;
+    font-family: 'Gruppo';
+    font-weight: 100;
+    font-color: #706d6d;
+    color: #706d6d;
+}
+
+h2 {
+    font-family: 'Gruppo';
+    font-weight: 100;
+    font-color: #706d6d;
+    color: #706d6d;
 }
 
 h1.title {
-    font-size: 60px;
-    color: #ffffff;
-    font-family: 'Major Mono Display';
+    font-size: 50px;
+    font-family: 'Gruppo';
+    font-weight: 100;
+    font-color: #706d6d;
+    color: #706d6d;
 }
 
 h1.subtitle {
-    font-size: 30px;
-    color: #ffffff;
-    font-family: 'Major Mono Display';
+    font-size: 25px;
+    font-family: 'Gruppo';
+    font-weight: 100;
+    font-color: #706d6d;
+    color: #706d6d;
 }
 
 .menu ul li {
-    font-size: 19px;
-    font-family: 'Major Mono Display';
+    font-size: 70px;
+    font-family: 'Gruppo';
     font-weight: bold;
+    font-color: #444444;
 }
 
 
 .page {
-    font-family: 'Special Elite';
+    font-family: 'Gruppo';
     font-size: 16pt;
 }
 
 body, h4 {
-    font-family: 'Special Elite';
+    font-family: 'Gruppo';
 }
 
 .material-symbols-outlined {
     color: #ffffff;
+}
+
+div, h1, h2, h3, h4, p, content, nav {
+  background-color: #eeeeee;
+  background: #eeeeee;
+}
+
+div#toc{
+  background-color: #a8a7a7;
+  background: #a8a7a7;
+}
+
+a {
+  background-color: #a8a7a7;
+  background: #a8a7a7;
+}
+
+#content ul, #content ol {
+  font-size: 20px;
+}
+
+#sidebar {
+  font-size: 22px;
+  font-color: #ffffff;
+  color: #ffffff;
+  background: #a8a7a7;
+}
+
+#sidebar h2 {
+  background-color: #a8a7a7;
+}
+
+p.author, p.date {
+  background-color: #a8a7a7;
+  background: #a8a7a7;
+}
+
+#sidebar a {
+  font-size: 100%;
+  color: #ffffff;
+}
+
+#postamble {
+  color: #a8a7a7;
+  background: #a8a7a7;
+  border-top: solid 10px #a8a7a7;
+}
+
+div#content {
+  background-color: #eeeeee;
+  background: #eeeeee;
+}
+
+div#main {
+  background-color: #eeeeee;
+  background: #eeeeee;
+}
+
+div#malerei {
+  background-color: #eeeeee;
+  background: #eeeeee;
+}
+
+
+.slick-slide {
+  background: #00000000;
+  height: 100vh;
+}
+
+.slickR.html-widget.html-widget-static-bound {
+  height: auto !important;
+}
+
+img {
+    height: 100vh !important;
+    width: 100vw !important;
+    object-fit: contain !important;
 }
 
 </style>
@@ -79,6 +167,11 @@ body, h4 {
 ```{r setup, include=FALSE, warning = FALSE, message = FALSE, echo = FALSE}
 library('slickR')
 library('lorem')
+library('bsplus')
+library("htmltools")
+
+# alles hellgrau im hintergrund; sehr dunkelgraue schrift
+# invertierte akzente
 
 knitr::opts_chunk$set(
   warning = FALSE,
@@ -93,36 +186,61 @@ knitr::opts_chunk$set(
 
 
 
-# wolfgang mössing
 - Studium: Kunst, Design, Philosophie und Geschichte in Düsseldorf und Berlin
 - Arbeiten in verschiedenen Designbereichen,
-- Objekte, Skulpturen, Installationen, Malerei, Grafik und kunstpädagogische Tätigkeit 
+- Objekte, Skulpturen, Installationen, Malerei und Grafik
 
-`r lorem::ipsum(paragraphs = 2)`
 
-# malerei
+# Malerei
 ```{r Malerei}
-malereien <- list.files("./images/malerei/", no.. = T, full.names = T)
-slickR(obj = malereien, height = 500, width = "95%") + 
-  settings(dots = TRUE, autoplay = TRUE)
+makeCarousel <- function(imgpath) {
+  images = list.files(imgpath, no.. = T, full.names = T)
+  carou = slickR(obj = images) + 
+    settings(dots = TRUE, autoplay = TRUE, autoplaySpeed = 6000)
+  return(carou)
+}
+
+makeCarousel("./images/malerei/")
+
+# images = list.files("./images/malerei/", no.. = T, full.names = T)
+# bs_carousel(id = "Malerei", use_indicators = TRUE) %>%
+#   bs_append(
+#     content = bs_carousel_image(src = images[[1]])
+#   ) %>%
+#   bs_append(
+#     content = bs_carousel_image(src =images[[2]])
+#   ) %>%
+#   bs_append(
+#     content = bs_carousel_image(src = images[[3]])
+#   )
 ```
+</br>
 
-
-# bildhauerei
-```{r Bildhauerei}
-bildhauereien <- list.files("./images/bildhauerei/", no.. = T, full.names = T)
-slickR(obj = bildhauereien,height = 500, width = "95%") + 
-  settings(dots = TRUE, autoplay = TRUE)
+# Bildhauerei
+```{r Bildhauerei, eval=TRUE}
+makeCarousel("./images/bildhauerei/")
 ```
+</br>
 
+# Grafik
+```{r Grafik, eval=TRUE}
+makeCarousel("./images/grafik/")
+```
+</br>
 
-# kontakt
+# Objekte
+```{r Objekte, eval=TRUE}
+makeCarousel("./images/objekte/")
+```
+</br>
+
+# Kontakt
 E-Mail: [wolfgangmoessing[at]gmx.de](mailto:wolfgangmoessing@gmx.de)
 
-# copyright
+# Copyright
 __Copyright ©`r format(Sys.Date(), '%Y')`, Wolfgang Mössing - All Rights Reserved__ 
 Unauthorized copying of original content from this website and individual files, via any medium, is strictly prohibited.
-Any user wishing to make use of original content from this website must contact Wolfgang Mössing at wolfgangmoessing[at]gmx.de to arrange an appropriate license.
+Any user wishing to make use of original content from this website must contact Wolfgang Mössing at wolfgangmoessing[at]gmx.de to arrange an appropriate licensing.
 Amongst others, "use" includes (1) integrating or incorporating all or part of the original work into
 a product for sale or license by, or on behalf of, any user to third parties, or (2) distribution of the original work to third parties for use with any commercial and/or free product.
 Author: Wolfgang Mössing wolfgangmoessing[at]gmx.de, 2022
