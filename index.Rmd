@@ -158,6 +158,13 @@ img {
     object-fit: contain !important;
 }
 
+nav#nav-top a {
+  background: #00000000;
+}
+
+div#kontakt.section.level1 p a {
+  background: #00000000;
+}
 </style>
 ```
 
