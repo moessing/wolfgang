@@ -146,10 +146,12 @@ div#malerei {
 .slick-slide {
   background: #00000000;
   height: 100vh;
+  lazyLoad: 'ondemand';
 }
 
 .slickR.html-widget.html-widget-static-bound {
   height: auto !important;
+  lazyLoad: 'ondemand';
 }
 
 img {
@@ -176,6 +178,9 @@ library('slickR')
 library('lorem')
 library('bsplus')
 library("htmltools")
+library("tools")
+library("data.table")
+library("stringr")
 
 # alles hellgrau im hintergrund; sehr dunkelgraue schrift
 # invertierte akzente
@@ -187,6 +192,49 @@ knitr::opts_chunk$set(
   include=TRUE,
   fig.align = 'center'
 )
+
+# sync repo content with dropbox content
+content_root <- "../../../Dropbox/Wolfgang-Wanja-geteilter-Ordner/"
+
+# get checksums of files in db
+syncThat <- function(categ) {
+  fnames = list.files(file.path(content_root, categ), full.names = T)
+  Drop = data.table(checksum = sapply(fnames, md5sum),
+                    files = sapply(fnames, basename),
+                    extension = str_to_lower(sapply(fnames, file_ext)),
+                    fullfiles = fnames)
+  Drop[extension != "jpg", 
+       lapply(files, function(x) warning(
+         paste0("File: ", x, " is not a jpeg and will hence not be used.")))]
+  fnames = list.files(file.path("./images/", categ), full.names = T)
+  Repo = data.table(checksum = sapply(fnames, md5sum),
+                    files = sapply(fnames, basename),
+                    extension = str_to_lower(sapply(fnames, file_ext)),
+                    fullfiles = fnames)
+  
+  # remove files that are in Repo but not in Drop
+  rm_these = Repo[!(checksum %in% Drop[extension == "jpg", checksum]), fullfiles]
+  lapply(rm_these, file.remove)
+  
+  # copy files that are in Drop but not in Repo
+  cp_these = Drop[!(checksum %in% Repo[, checksum]) & extension == "jpg",
+                  .(cp_these = sapply(fullfiles, normalizePath))]
+  file.copy(from = cp_these[, cp_these], to = file.path("./images/", categ))
+  
+  # scramble filenames
+  fnames = list.files(file.path("./images/", categ), full.names = T)
+  if (length(fnames) > 0) {
+    file.rename(fnames, 
+                str_c(file.path("./images", categ), "/", 
+                      sapply(fnames, md5sum), ".jpg"))
+  }
+}
+
+syncThat("Malerei")
+syncThat("Bildhauerei")
+syncThat("Grafik")
+syncThat("Objekte")
+
 
 #<img src='https://github.com/moessing/wolfgang/raw/live/images/testlogoplaceholder.png' alt='Logo Wolfgang Mössing' width='200'> 
 ```
