@@ -159,7 +159,7 @@ img {
     height: 100vh !important;
     width: 100vw !important;
     object-fit: contain !important;
-    lazyLoad: 'ondemand';
+    loading: 'lazy';
 }
 
 nav#nav-top a {
@@ -169,6 +169,7 @@ nav#nav-top a {
 div#kontakt.section.level1 p a {
   background: #00000000;
 }
+
 </style>
 ```
 
@@ -252,7 +253,9 @@ syncThat("Objekte")
 ```{r Malerei}
 makeCarousel <- function(imgpath) {
   images = list.files(imgpath, no.. = T, full.names = T)
-  carou = slickR(obj = images) + 
+  images = str_replace_all(images, "^\\.", 
+                           "https://github.com/moessing/wolfgang/raw/main")
+  carou = slickR(obj = slick_div(images, type="img-lazy")) + 
     settings(dots = TRUE, autoplay = TRUE, autoplaySpeed = 6000)
   return(carou)
 }
@@ -271,7 +274,7 @@ makeCarousel("./images/malerei/")
 #     content = bs_carousel_image(src = images[[3]])
 #   )
 ```
-</br>
+</br></br></br>
 
 # Bildhauerei
 ```{r Bildhauerei, eval=TRUE}
@@ -294,10 +297,8 @@ makeCarousel("./images/objekte/")
 # Kontakt
 E-Mail: [wolfgangmoessing[at]gmx.de](mailto:wolfgangmoessing@gmx.de)
 
-# Copyright
-__Copyright ©`r format(Sys.Date(), '%Y')`, Wolfgang Mössing - All Rights Reserved__ 
-Unauthorized copying of original content from this website and individual files, via any medium, is strictly prohibited.
-Any user wishing to make use of original content from this website must contact Wolfgang Mössing at wolfgangmoessing[at]gmx.de to arrange an appropriate licensing.
-Amongst others, "use" includes (1) integrating or incorporating all or part of the original work into
-a product for sale or license by, or on behalf of, any user to third parties, or (2) distribution of the original work to third parties for use with any commercial and/or free product.
-Author: Wolfgang Mössing wolfgangmoessing[at]gmx.de, 2022
+<details>
+<summary style="display:list-item">Copyright ©`r format(Sys.Date(), '%Y')`, Wolfgang Mössing - All Rights Reserved</summary>
+<div class="content">
+Unauthorized copying of original content from this website and individual files, via any medium, is strictly prohibited. Any user wishing to make use of original content from this website must contact Wolfgang Mössing at wolfgangmoessing[at]gmx.de to arrange an appropriate licensing. Amongst others, "use" includes (1) integrating or incorporating all or part of the original work into a product for sale or license by, or on behalf of, any user to third parties, or (2) distribution of the original work to third parties for use with any commercial and/or free product. Author: Wolfgang Mössing wolfgangmoessing[at]gmx.de, 2022
+</details> 
