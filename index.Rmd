@@ -17,160 +17,18 @@ output:
       collapsed: true
       smooth_scroll: true
     self_contained: false
+    includes:
+      in_header: ga.html
 embed_fonts: true
 editor_options: 
   chunk_output_type: console
 ---
 
 ```{=html}
-<!-- <meta name="robots" content="noindex"> -->
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gruppo&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&display=swap">
-
-<style>
-
-h1 {
-    font-size: 25px;
-    font-family: 'Gruppo';
-    font-weight: 100;
-    font-color: #706d6d;
-    color: #706d6d;
-}
-
-h2 {
-    font-family: 'Gruppo';
-    font-weight: 100;
-    font-color: #706d6d;
-    color: #706d6d;
-}
-
-h1.title {
-    font-size: 50px;
-    font-family: 'Gruppo';
-    font-weight: 100;
-    font-color: #706d6d;
-    color: #706d6d;
-}
-
-h1.subtitle {
-    font-size: 25px;
-    font-family: 'Gruppo';
-    font-weight: 100;
-    font-color: #706d6d;
-    color: #706d6d;
-}
-
-.menu ul li {
-    font-size: 70px;
-    font-family: 'Gruppo';
-    font-weight: bold;
-    font-color: #444444;
-}
-
-
-.page {
-    font-family: 'Gruppo';
-    font-size: 16pt;
-}
-
-body, h4 {
-    font-family: 'Gruppo';
-}
-
-.material-symbols-outlined {
-    color: #ffffff;
-}
-
-div, h1, h2, h3, h4, p, content, nav {
-  background-color: #eeeeee;
-  background: #eeeeee;
-}
-
-div#toc{
-  background-color: #a8a7a7;
-  background: #a8a7a7;
-}
-
-a {
-  background-color: #a8a7a7;
-  background: #a8a7a7;
-}
-
-#content ul, #content ol {
-  font-size: 20px;
-}
-
-#sidebar {
-  font-size: 22px;
-  font-color: #ffffff;
-  color: #ffffff;
-  background: #a8a7a7;
-}
-
-#sidebar h2 {
-  background-color: #a8a7a7;
-}
-
-p.author, p.date {
-  background-color: #a8a7a7;
-  background: #a8a7a7;
-}
-
-#sidebar a {
-  font-size: 100%;
-  color: #ffffff;
-}
-
-#postamble {
-  color: #a8a7a7;
-  background: #a8a7a7;
-  border-top: solid 10px #a8a7a7;
-}
-
-div#content {
-  background-color: #eeeeee;
-  background: #eeeeee;
-}
-
-div#main {
-  background-color: #eeeeee;
-  background: #eeeeee;
-}
-
-div#malerei {
-  background-color: #eeeeee;
-  background: #eeeeee;
-}
-
-
-.slick-slide {
-  background: #00000000;
-  height: 100vh;
-  lazyLoad: 'ondemand';
-}
-
-.slickR.html-widget.html-widget-static-bound {
-  height: auto !important;
-  lazyLoad: 'ondemand';
-}
-
-img {
-    height: 100vh !important;
-    width: 100vw !important;
-    object-fit: contain !important;
-    loading: 'lazy';
-}
-
-nav#nav-top a {
-  background: #00000000;
-}
-
-div#kontakt.section.level1 p a {
-  background: #00000000;
-}
-
-</style>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PFXN9HX2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 ```
 
 
@@ -245,7 +103,7 @@ syncThat("Objekte")
 
 
 - Studium: Kunst, Design, Philosophie und Geschichte in Düsseldorf und Berlin
-- Arbeiten in verschiedenen Designbereichen,
+- Arbeiten in verschiedenen Designbereichen
 - Objekte, Skulpturen, Installationen, Malerei und Grafik
 
 
